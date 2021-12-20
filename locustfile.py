@@ -10,10 +10,17 @@ class User(HttpUser):
         self.client.get("/users")
 
     @task(3)
-    def create_oneuser(self):
+    def create_singleuser(self):
         self.client.post("/users", json={
             "name": "Kristina Tripak",
             "job": "UI/UX Designer"
+        })
+
+    @task(1)
+    def create_user(self):
+        self.client.post("/users", json={
+            "name": "Kristina",
+            "surname": "Tripak"
         })
 
     @task(3)
@@ -28,12 +35,15 @@ class User(HttpUser):
         self.client.delete("/users/2")
 
     @task(1)
-    def log_user(self):
-        self.client.get("/user/login", json={
-            "username": "login123",
-            "password": "qwertyqwerty"
+    def register_user(self):
+        self.client.post("/register", json={
+            "email": "emma.wong@reqres.in",
+            "password": "pistol"
         })
 
     @task(1)
-    def logout_user(self):
-        self.client.get("/user/logout")
+    def log_user(self):
+        self.client.post("/login", json={
+            "email": "emma.wong@reqres.in",
+            "password": "pistol"
+        })
